@@ -15,7 +15,7 @@ from fbprophet import Prophet
 # csv input should have 2 columns: "ds" - date and "y" - values
 # works also automatically with missing values
 
-df = pd.read_csv('C:\\Users\\j.klen\\PythonProjects\\work\\daily-minimum-temperatures-in-meWithNA.csv')
+df = pd.read_csv('daily-minimum-temperatures-in-meWithNA.csv')
 
 m = Prophet(interval_width = 0.95)
 m.fit(df)
