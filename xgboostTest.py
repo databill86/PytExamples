@@ -44,16 +44,18 @@ np.save('label_classes.npy', label_encoder.classes_)
 encoded_x = False
 vars_to_drop = []
 
-for i in range(0, x.shape[1]):
-    if type(x[1,i]) == str:
+for i in range(0, X.shape[1]):
+    if type(X[1,i]) == str:
         vars_to_drop.append(i)
         label_encoder = LabelEncoder()
-        feature = label_encoder.fit_transform(x[:, i])
-        feature = feature.reshape(x.shape[0], 1)
+        feature = label_encoder.fit_transform(X[:,i])
+        feature = feature.reshape(X.shape[0], 1)
         onehot_encoder = OneHotEncoder(sparse = False)
         feature = onehot_encoder.fit_transform(feature)
+        feature = np.delete(feature, feature.shape[1] - 1, axis = 1) # drop one dummy category of variable to encode
         if encoded_x == False:
             encoded_x_var = feature
+            encoded_x = True
         else:
             encoded_x_var = np.concatenate((encoded_x_var, feature), axis = 1)
 
